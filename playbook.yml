@@ -1,6 +1,6 @@
 - name: Install docker
   gather_facts: No
-  hosts: test
+  hosts: docker
   vars:
     user_name: ansible
   task:
@@ -8,8 +8,8 @@
       package:
         name: "{{ item }}"
         state: latest
-    become: yes
-    with_items:
+      become: yes
+      with_items:
       - yum-utils
       - lvm2
       - device-mapper-persistent-data
@@ -33,9 +33,9 @@
         enable: yes
       become: yes
 
-  - name: Add user ansible to docker group
-    user:
-      name: ansible
-      groups: docker
-      append: yes
-    become: yes
+    - name: Add user jenkins to docker group
+      user:
+        name: jenkins
+        groups: docker
+        append: yes
+      become: yes
