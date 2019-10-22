@@ -5,8 +5,8 @@ provider "google" {
   region  = "europe-west3"
   zone    = "europe-west3-c"
 }
-resource "google_compute_instance" "carts-tf" {
-	name         = "carts-tf"
+resource "google_compute_instance" "app-tf" {
+	name         = "app-tf"
 	machine_type = "g1-small"
 
 
@@ -26,10 +26,10 @@ resource "google_compute_instance" "carts-tf" {
 	}
   metadata = { ssh-keys = "${var.ssh_user}:${file(var.ssh_pub_key ["${var.ssh_user}"])}" }
     
-    tags = [ "carts-tf" ]
+    tags = [ "http-server" ]
 }
-resource "google_compute_instance" "mongodb-tf" {
-	name         = "mongodb-tf"
+resource "google_compute_instance" "db-tf" {
+	name         = "db-tf"
 	machine_type = "g1-small"
 
 
@@ -48,5 +48,5 @@ resource "google_compute_instance" "mongodb-tf" {
 		}
 	}
   metadata = { ssh-keys = "${var.ssh_user}:${file(var.ssh_pub_key ["${var.ssh_user}"])}" }
-      tags = [ "mongodb-tf" ]
+      tags = [ "db-tf" ]
 }
