@@ -2,7 +2,7 @@
   gather_facts: No
   hosts: docker
       
-  task:
+  tasks:
     - name: Install utils
       package:
         name: "{{ item }}"
@@ -16,7 +16,7 @@
     - name: Add Docker repo
       get_url:
         url: https://download.docker.com/linux/centos/docker-ce.repo
-        dest: /etc/yum.repos.d/docker/ce.repo
+        dest: /etc/yum.repos.d/docker-ce.repo
       become: yes
 
     - name: Install Docker
@@ -28,8 +28,8 @@
     - name: Start Docker service
       service:
         name: docker
-        state: starter
-        enable: yes
+        state: started
+        enabled: yes
       become: yes
 
     - name: Add user jenkins to docker group
