@@ -1,6 +1,6 @@
 variable "name" {
     description = "Name of the resourcen."
-    default     = "Demo2"
+    default     = "Demo1"
 }
 variable "network_ip" {
   description = "The private IP address to assign to the instance. If empty, the address will be automatically assigned."
