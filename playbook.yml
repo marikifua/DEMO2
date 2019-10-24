@@ -46,3 +46,11 @@
         group: jenkins
         mode: 0774
       become: yes  
+    - name: Creates directory
+      file:
+        path: /app/orders
+        state: directory
+        owner: jenkins
+        group: jenkins
+        mode: 0774
+      become: yes  
