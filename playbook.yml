@@ -38,3 +38,10 @@
         groups: docker
         append: yes
       become: yes
+    - name: Creates directory
+      file:
+        path: /app/carts
+        state: directory
+        owner: jenkins
+        group: jenkins
+        mode: 0774
