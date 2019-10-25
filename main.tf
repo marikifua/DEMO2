@@ -7,7 +7,7 @@ provider "google" {
 }
 resource "google_compute_instance" "app-tf" {
 	name         = "app-tf"
-	machine_type = "g1-small"
+	machine_type = "n1-standard-1"
 
 
 	boot_disk {
@@ -30,7 +30,7 @@ resource "google_compute_instance" "app-tf" {
 }
 resource "google_compute_instance" "db-tf" {
 	name         = "db-tf"
-	machine_type = "g1-small"
+	machine_type = "n1-standard-1"
 
 
 	boot_disk {
