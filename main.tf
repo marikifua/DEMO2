@@ -26,7 +26,7 @@ resource "google_compute_instance" "app-tf" {
 	}
   metadata = { ssh-keys = "${var.ssh_user}:${file(var.ssh_pub_key ["${var.ssh_user}"])}" }
     
-    tags = [ "http-server" ]
+    tags = [ "http-server", "prod8081" ]
 }
 resource "google_compute_instance" "db-tf" {
 	name         = "db-tf"
