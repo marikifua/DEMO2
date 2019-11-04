@@ -22,5 +22,11 @@
 #    become: yes
 #    become_user: root
 #    become_method: sudo
+  - name: Docker Login
+    docker_login:
+      registry: https://gcr.io
+      username: _json_key
+      debug: true
+      password: " {{ lookup('file', '~/credential/marikkey.json')}}"
 
          
