@@ -1,3 +1,4 @@
+---
 - name: build
   gather_facts: No
   hosts: localhost

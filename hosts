@@ -1,5 +1,3 @@
 [docker]
 app-tf
 db-tf
-[build]
-localhost
