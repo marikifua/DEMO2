@@ -1,0 +1,18 @@
+- name: build 
+  gather_facts: No
+  hosts: build
+      
+  tasks:
+    - name: Clone front-end
+      git:
+      repo: 'https://github.com/marikifua/front-end.git'
+      dest: ~/repositories
+    
+    - name: build front-end
+      docker_image: 
+        name: build front-end
+        build:
+          name: gcr.io/quantum-tracker-251814/front-end
+          path: ~/repositories/front-end/
+
+         
