@@ -8,9 +8,7 @@
     git:
       repo: 'https://github.com/marikifua/front-end.git'
       dest: /var/lib/jenkins/repositories/front-end
-#    become: yes
-#    become_user: root
-#    become_method: sudo
+
   - name: Docker Login
     docker_login:
       registry: https://gcr.io
@@ -20,15 +18,31 @@
 
   - name: build front-end
     docker_image:
-      name: gcr.io/quantum-tracker-251814/front-end
+      name: gcr.io/quantum-tracker-251814/front-end:{{ BUILD_NUMBER }}
       build:
         path: /var/lib/jenkins/repositories/front-end
-        pull: yes
       source: build
       push: yes
-#    become: yes
-#    become_user: root
-#    become_method: sudo
+
+  - name: TAG front-end
+    docker_image:
+      name: gcr.io/quantum-tracker-251814/front-end:{{ BUILD_NUMBER }}
+      repository: gcr.io/quantum-tracker-251814/front-end:latest
+      force_tag: yes
+      source: local
+      push: yes
+
+  - name: Remove image latest
+    docker_image:
+      state: absent
+      name: gcr.io/quantum-tracker-251814/front-end
+      tag: latest
+  
+  - name: Remove image version
+    docker_image:
+      state: absent
+      name: gcr.io/quantum-tracker-251814/front-end
+      tag: "{{ BUILD_NUMBER }}"
   
 
          
