@@ -11,6 +11,12 @@
 #    become: yes
 #    become_user: root
 #    become_method: sudo
+  - name: Docker Login
+    docker_login:
+      registry: https://gcr.io
+      username: _json_key
+      debug: true
+      password: " {{ lookup('file', '~/credential/marikkey.json')}}"
 
   - name: build front-end
     docker_image:
@@ -19,14 +25,10 @@
         path: /var/lib/jenkins/repositories/front-end
         pull: yes
       source: build
+      push: yes
 #    become: yes
 #    become_user: root
 #    become_method: sudo
-  - name: Docker Login
-    docker_login:
-      registry: https://gcr.io
-      username: _json_key
-      debug: true
-      password: " {{ lookup('file', '~/credential/marikkey.json')}}"
+  
 
          
