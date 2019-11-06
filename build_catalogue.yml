@@ -41,7 +41,7 @@
   - name: Remove image version
     docker_image:
       state: absent
-      name: gcr.io/quantum-tracker-251814/catalogu-edb
+      name: gcr.io/quantum-tracker-251814/catalogue-db
       tag: "3.0.0-{{ BUILD_NUMBER }}"
   
 
