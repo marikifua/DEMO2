@@ -24,10 +24,10 @@
       source: build
       push: yes
 
-  - name: TAG front-end
+  - name: TAG catalogue-db
     docker_image:
       name: gcr.io/quantum-tracker-251814/cataloguedb:3.0.0-{{ BUILD_NUMBER }}
-      repository: gcr.io/quantum-tracker-251814/cataloguedb:latest
+      repository: gcr.io/quantum-tracker-251814/catalogue-db:latest
       force_tag: yes
       source: local
       push: yes
@@ -35,13 +35,13 @@
   - name: Remove image latest
     docker_image:
       state: absent
-      name: gcr.io/quantum-tracker-251814/cataloguedb
+      name: gcr.io/quantum-tracker-251814/catalogue-db
       tag: latest
   
   - name: Remove image version
     docker_image:
       state: absent
-      name: gcr.io/quantum-tracker-251814/cataloguedb
+      name: gcr.io/quantum-tracker-251814/catalogu-edb
       tag: "3.0.0-{{ BUILD_NUMBER }}"
   
 
