@@ -1,0 +1,48 @@
+---
+- name: build
+  gather_facts: No
+  hosts: localhost
+
+  tasks:
+  - name: Clone catalogue
+    git:
+      repo: 'https://github.com/marikifua/catalogue.git'
+      dest: /var/lib/jenkins/repositories/catalogue
+
+  - name: Docker Login
+    docker_login:
+      registry: https://gcr.io
+      username: _json_key
+      debug: true
+      password: " {{ lookup('file', '~/credential/marikkey.json')}}"
+
+  - name: build catalogue-db
+    docker_image:
+      name: gcr.io/quantum-tracker-251814/catalogue:3.0.0-{{ BUILD_NUMBER }}
+      build:
+        path: /var/lib/jenkins/repositories/catalogue/docker/catalogue-db
+      source: build
+      push: yes
+
+  - name: TAG front-end
+    docker_image:
+      name: gcr.io/quantum-tracker-251814/cataloguedb:3.0.0-{{ BUILD_NUMBER }}
+      repository: gcr.io/quantum-tracker-251814/cataloguedb:latest
+      force_tag: yes
+      source: local
+      push: yes
+
+  - name: Remove image latest
+    docker_image:
+      state: absent
+      name: gcr.io/quantum-tracker-251814/cataloguedb
+      tag: latest
+  
+  - name: Remove image version
+    docker_image:
+      state: absent
+      name: gcr.io/quantum-tracker-251814/cataloguedb
+      tag: "3.0.0-{{ BUILD_NUMBER }}"
+  
+
+         
