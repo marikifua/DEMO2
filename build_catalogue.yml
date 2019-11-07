@@ -43,6 +43,33 @@
       state: absent
       name: gcr.io/quantum-tracker-251814/catalogue-db
       tag: "3.0.0-{{ BUILD_NUMBER }}"
+
+  - name: build catalogue
+    docker_image:
+      name: gcr.io/quantum-tracker-251814/catalogue:3.0.0-{{ BUILD_NUMBER }}
+      build:
+        path: /var/lib/jenkins/repositories/catalogue/docker/catalogue
+      source: build
+      push: yes
+
+  - name: TAG catalogue-db
+    docker_image:
+      name: gcr.io/quantum-tracker-251814/catalogue:3.0.0-{{ BUILD_NUMBER }}
+      repository: gcr.io/quantum-tracker-251814/catalogue:latest
+      force_tag: yes
+      source: local
+      push: yes
+
+  - name: Remove image latest
+    docker_image:
+      state: absent
+      name: gcr.io/quantum-tracker-251814/catalogue
+      tag: latest
   
+  - name: Remove image version
+    docker_image:
+      state: absent
+      name: gcr.io/quantum-tracker-251814/catalogue
+      tag: "3.0.0-{{ BUILD_NUMBER }}"
 
          
