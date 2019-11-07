@@ -1,0 +1,6 @@
+- name: Docker Login
+  docker_login:
+    registry: https://eu.gcr.io
+    username: _json_key
+    debug: true
+    password: "{{ lookup('file', '~/credential/marikkey.json')}}"
