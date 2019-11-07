@@ -52,7 +52,7 @@
       source: build
       push: yes
 
-  - name: TAG catalogue-db
+  - name: TAG catalogue
     docker_image:
       name: gcr.io/quantum-tracker-251814/catalogue:3.0.0-{{ BUILD_NUMBER }}
       repository: gcr.io/quantum-tracker-251814/catalogue:latest
