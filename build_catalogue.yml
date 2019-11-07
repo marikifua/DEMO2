@@ -32,13 +32,13 @@
       source: local
       push: yes
 
-  - name: Remove image latest
+  - name: Remove image latest catalogue-db
     docker_image:
       state: absent
       name: gcr.io/quantum-tracker-251814/catalogue-db
       tag: latest
   
-  - name: Remove image version
+  - name: Remove image version catalogue-db
     docker_image:
       state: absent
       name: gcr.io/quantum-tracker-251814/catalogue-db
@@ -60,13 +60,13 @@
       source: local
       push: yes
 
-  - name: Remove image latest
+  - name: Remove image latest catalogue
     docker_image:
       state: absent
       name: gcr.io/quantum-tracker-251814/catalogue
       tag: latest
   
-  - name: Remove image version
+  - name: Remove image version catalogue
     docker_image:
       state: absent
       name: gcr.io/quantum-tracker-251814/catalogue
