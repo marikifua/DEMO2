@@ -38,19 +38,14 @@
         groups: docker
         append: yes
       become: yes
-    - name: Creates directory
-      file:
-        path: /app/carts
-        state: directory
-        owner: jenkins
-        group: jenkins
-        mode: 0774
-      become: yes  
-    - name: Creates directory
-      file:
-        path: /app/orders
-        state: directory
-        owner: jenkins
-        group: jenkins
-        mode: 0774
-      become: yes  
+
+    - name: Install pip
+      easy_install:
+        name: pip
+        state: latest
+      become: yes   
+    - name:  Install Docker-py
+      pip:
+        name: docker-py
+        state: latest
+      become: yes
