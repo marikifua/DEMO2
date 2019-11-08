@@ -1,0 +1,72 @@
+---
+- hosts: localhost
+  gather_facts: No
+
+  tasks:
+  - name: Clone carts
+    git:
+      repo: 'https://github.com/marikifua/carts.git'
+      dest: /var/lib/jenkins/repositories/carts
+
+  - name: Docker Login
+    docker_login:
+      registry: https://gcr.io
+      username: _json_key
+      debug: true
+      password: " {{ lookup('file', '~/credential/marikkey.json')}}"
+
+  - name: build carts
+    docker_image:
+      name: gcr.io/quantum-tracker-251814/carts:3.0.0-{{ BUILD_NUMBER }}
+      build:
+        dockerfile: "/var/lib/jenkins/workspace/cards/docker/carts/Dockerfile"
+        path: "/var/lib/jenkins/workspace/cards/target"
+      source: build
+      push: yes
+
+  - name: TAG carts
+    docker_image:
+      name: gcr.io/quantum-tracker-251814/carts:3.0.0-{{ BUILD_NUMBER }}
+      repository: gcr.io/quantum-tracker-251814/carts:latest
+      force_tag: yes
+      source: local
+      push: yes
+
+  - name: Remove image latest carts
+    docker_image:
+      state: absent
+      name: gcr.io/quantum-tracker-251814/carts
+      tag: latest
+  
+  - name: Remove image version carts
+    docker_image:
+      state: absent
+      name: gcr.io/quantum-tracker-251814/carts
+      tag: "3.0.0-{{ BUILD_NUMBER }}"
+
+- hosts: app-tf
+  gather_facts: No
+
+  tasks:
+  - name: Create carts container
+    docker_container:
+      name: carts
+      image: gcr.io/quantum-tracker-251814/carts
+      network_mode: "my_net" 
+      etc_hosts:
+        carts-db: "{{ dbhost }}"
+      recreate: yes
+      state: started       
+
+- hosts: db-tf
+  gather_facts: No
+
+  tasks:
+  - name: Create carts-db container
+    docker_container:
+      name: carts-db
+      image: mongo
+      ports:
+        - "27017:27017"
+      recreate: yes
+      state: started     
