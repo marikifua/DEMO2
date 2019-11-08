@@ -23,6 +23,7 @@
         path: /var/lib/jenkins/repositories/catalogue/docker/catalogue-db
       source: build
       push: yes
+    tags: database  
 
   - name: TAG catalogue-db
     docker_image:
@@ -73,4 +74,10 @@
       name: gcr.io/quantum-tracker-251814/catalogue
       tag: "3.0.0-{{ BUILD_NUMBER }}"
 
-         
+  - name: Create catalogue container
+    docker_container:
+      name: catalogue
+      image: gcr.io/quantum-tracker-251814/catalogue
+      network_mode: "my_net"  
+      recreate: yes
+      state: started       

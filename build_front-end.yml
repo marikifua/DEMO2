@@ -43,6 +43,22 @@
       state: absent
       name: gcr.io/quantum-tracker-251814/front-end
       tag: "3.0.0-{{ BUILD_NUMBER }}"
-  
 
+  - name: Create a network
+    docker_network:
+      name: my_net
+
+  - name: Pull front-end image
+    docker_image:
+      name: gcr.io/quantum-tracker-251814/front-end
+      source: pull 
+  
+  - name: Create front-end container
+    docker_container:
+      name: front-end
+      image: gcr.io/quantum-tracker-251814/front-end
+      network_mode: "my_net"  
+      recreate: yes
+      state: started  
+      restart_policy: always
          
