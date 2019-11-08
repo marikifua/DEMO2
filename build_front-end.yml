@@ -1,8 +1,7 @@
 ---
-- name: build
+- hosts: localhost
   gather_facts: No
-  hosts: localhost
-
+  
   tasks:
   - name: Clone front-end
     git:
@@ -43,6 +42,10 @@
       state: absent
       name: gcr.io/quantum-tracker-251814/front-end
       tag: "3.0.0-{{ BUILD_NUMBER }}"
+  
+- hosts: app-tf
+
+  tasks:
 
   - name: Create a network
     docker_network:
@@ -54,7 +57,7 @@
       source: pull 
   
   - name: Create front-end container
-    docker_container:
+    docker_conainer:
       name: front-end
       image: gcr.io/quantum-tracker-251814/front-end
       network_mode: "my_net"  
