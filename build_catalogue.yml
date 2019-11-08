@@ -82,7 +82,8 @@
       name: catalogue
       image: gcr.io/quantum-tracker-251814/catalogue
       network_mode: "my_net" 
-      etc_hosts: "{{ dbhost }}" 
+      etc_hosts:
+        catalogue-db: "{{ dbhost }}"
       recreate: yes
       state: started       
 
