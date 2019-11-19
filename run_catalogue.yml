@@ -1,0 +1,27 @@
+---
+- hosts: app-tf
+  gather_facts: No
+
+  tasks:
+  - name: Create catalogue container
+    docker_container:
+      name: catalogue
+      image: gcr.io/quantum-tracker-251814/catalogue
+      network_mode: "my_net" 
+      etc_hosts:
+        catalogue-db: "{{ dbhost }}"
+      recreate: yes
+      state: started       
+
+- hosts: db-tf
+  gather_facts: No
+
+  tasks:
+  - name: Create catalogue-db container
+    docker_container:
+      name: catalogue-db
+      image: gcr.io/quantum-tracker-251814/catalogue-db
+      ports:
+        - "3306:3306"
+      recreate: yes
+      state: started     
