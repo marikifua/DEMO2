@@ -17,6 +17,9 @@
   gather_facts: No
 
   tasks:
+  - name: Create a network
+    docker_network:
+      name: my_net
   - name: Create carts-db container
     docker_container:
       name: carts-db

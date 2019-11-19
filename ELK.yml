@@ -1,0 +1,27 @@
+---
+
+- hosts: db-tf
+  gather_facts: No
+
+  tasks:
+  - name: Create kibana container
+    docker_container:
+      name: kibana
+      image: kibana:7.4.2
+      network_mode: "my_net"
+      ports:
+        - "5601:5601"
+      recreate: yes
+      state: started     
+  - name: Create ElasticSearch container
+    docker_container:
+      name: elasticsearch
+      image: elasticsearch:7.4.2
+      network_mode: "my_net"
+      ports:
+        - "9200:9200"
+        - "9300:9300"
+      env: 
+        ES_JAVA_OPTS: "-Xms750m -Xmx750m"
+      recreate: yes
+      state: started         
