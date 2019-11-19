@@ -1,0 +1,27 @@
+---
+- hosts: app-tf
+  gather_facts: No
+
+  tasks:
+  - name: Create carts container
+    docker_container:
+      name: carts
+      image: gcr.io/quantum-tracker-251814/carts
+      network_mode: "my_net" 
+      etc_hosts:
+        carts-db: "{{ dbhost }}"
+      recreate: yes
+      state: started       
+
+- hosts: db-tf
+  gather_facts: No
+
+  tasks:
+  - name: Create carts-db container
+    docker_container:
+      name: carts-db
+      image: mongo
+      ports:
+        - "27017:27017"
+      recreate: yes
+      state: started     
