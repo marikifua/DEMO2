@@ -60,6 +60,13 @@
   gather_facts: No
 
   tasks:
+  - name: copy filebeat conf to app-tf
+    copy:
+      src: ./filebeat.yml
+      dest: /tmp
+      force: yes
+    become: yes
+
   - name: Create filebeat container
     docker_container:
       name: filebeat
