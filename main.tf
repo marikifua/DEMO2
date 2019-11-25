@@ -48,5 +48,5 @@ resource "google_compute_instance" "db-tf" {
 		}
 	}
   metadata = { ssh-keys = "${var.ssh_user}:${file(var.ssh_pub_key ["${var.ssh_user}"])}" }
-      tags = [ "mongo" ]
+      tags = [ "mongo","elk" ]
 }

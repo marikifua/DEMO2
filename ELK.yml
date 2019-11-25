@@ -4,6 +4,11 @@
   gather_facts: No
 
   tasks:
+  - sysctl:
+    name: vm.max_map_count
+    value: '262144'
+    state: present
+
   - name: Create kibana container
     docker_container:
       name: kibana
@@ -50,4 +55,22 @@
       recreate: yes
       state: started      
 
-      
+- hosts: app-tf
+  gather_facts: No
+
+  tasks:
+  - name: Create filebeat container
+    docker_container:
+      name: filebeat
+      image: docker.io/elastic/filebeat:6.8.4
+      network_mode: "my_net"
+      command: ["sh","-c","filebeat -e -strict.perms=false"]
+      volumes:
+        - /tmp/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
+        - /var/lib/docker/containers:/var/lib/docker/containers:ro
+        - /var/run/docker.sock:/var/run/docker.sock:ro
+      env: 
+        output.elasticsearch.hosts: "elasticsearch:9200"
+      user: root
+      recreate: yes
+      state: started      
