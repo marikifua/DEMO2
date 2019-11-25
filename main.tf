@@ -2,8 +2,8 @@ provider "google" {
   credentials = "${file("~/credential/marikkey.json")}"
   #credentials = "./credential/marikkey.json"
   project = "quantum-tracker-251814"
-  region  = "europe-west3"
-  zone    = "europe-west3-c"
+  region  = "us-central1"
+  zone    = "us-central1-f"
 }
 resource "google_compute_instance" "app-tf" {
 	name         = "app-tf"
