@@ -12,7 +12,7 @@
 # - add_cloud_metadata: ~
 
 # output.elasticsearch:
-#   hosts: '${ELASTICSEARCH_HOSTS:elasticsearch:9200}'
+#   hosts: '${ELASTICSEARCH_HOSTS:db-tf:9200}'
 #   username: 'elastic'
 #   password: 'changeme'
 
