@@ -2,7 +2,8 @@
 
 - hosts: db-tf
   gather_facts: No
-
+  become: yes
+  
   tasks:
   - name: change system parameters
     sysctl:
