@@ -40,7 +40,7 @@ processors:
     #host: "unix:///var/run/docker.sock"
 
 output.elasticsearch:
-  hosts: '${ELASTICSEARCH_HOSTS:elk:9200}'
+  hosts: '${ELASTICSEARCH_HOSTS:db-tf:9200}'
   username: 'elastic'
   password: 'changeme'
 
