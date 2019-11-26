@@ -8,7 +8,7 @@ variable "network_ip" {
 }  
 variable "zone" {
   description = "The zone that the machine should be created in"
-  default     = "europe-west3-c"    
+  default     = "us-central1-f"    
 } 
 
 variable "image" {
