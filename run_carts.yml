@@ -11,7 +11,8 @@
       etc_hosts:
         carts-db: "{{ dbhost }}"
       recreate: yes
-      state: started       
+      state: started
+      restart_policy: always       
 
 - hosts: db-tf
   gather_facts: No
@@ -27,4 +28,5 @@
       ports:
         - "27017:27017"
       recreate: yes
-      state: started     
+      state: started
+      restart_policy: always     
