@@ -83,7 +83,8 @@
       volumes:
         - /tmp/htpasswd.users:/etc/nginx/htpasswd.users
         - /tmp/nginx.conf:/etc/nginx/nginx.conf
-        
+      ports: 
+        - "80:80"  
       recreate: yes
       state: started
       restart_policy: always  
