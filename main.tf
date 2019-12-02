@@ -30,7 +30,7 @@ resource "google_compute_instance" "app-tf" {
 }
 resource "google_compute_instance" "db-tf" {
 	name         = "db-tf"
-	machine_type = "n1-standard-1"
+	machine_type = "n1-standard-2"
 
 
 	boot_disk {
