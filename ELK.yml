@@ -16,10 +16,11 @@
       name: kibana
       image: kibana:6.8.4
       network_mode: "my_net"
-      ports:
-        - "5601:5601"
+   #   ports:
+   #     - "5601:5601"
       recreate: yes
       state: started
+      log_driver: journald    
       restart_policy: always 
 
   - name: Create ElasticSearch container
@@ -34,6 +35,7 @@
         ES_JAVA_OPTS: "-Xms750m -Xmx750m"
       recreate: yes
       state: started
+      log_driver: journald
       restart_policy: always         
 
   - name: copy filebeat conf to db-tf
@@ -59,6 +61,7 @@
       user: root
       recreate: yes
       state: started
+      log_driver: journald
       restart_policy: always  
 
   - name: copy nginx.conf to db-tf
@@ -88,6 +91,7 @@
         - "80:80"  
       recreate: yes
       state: started
+      log_driver: journald
       restart_policy: always  
 
       
@@ -121,4 +125,5 @@
       user: root
       recreate: yes
       state: started
+      log_driver: journald
       restart_policy: always      
