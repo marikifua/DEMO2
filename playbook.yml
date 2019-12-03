@@ -3,6 +3,14 @@
   hosts: docker
       
   tasks:
+    - name: Enable ip forwarding
+      sysctl:
+        name: net.ipv4.ip_forward
+        value: '1'
+        sysctl_set: yes
+        state: present
+        reload: yes
+
     - name: Install utils
       package:
         name: "{{ item }}"
